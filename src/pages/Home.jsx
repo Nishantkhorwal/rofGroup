@@ -30,6 +30,79 @@ import Footer from '../components/Footer';
 function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [counteron, setCounterOn] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+  });
+  const [submitting, setSubmitting] = useState(false);
+  const [submittedMessage, setSubmittedMessage] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+
+    // Clear phone number error when user starts typing again
+    if (name === 'phone') {
+      setPhoneError('');
+    }
+  };
+
+  const validatePhone = (phone) => {
+    if (phone.trim().length > 10) {
+      setPhoneError('Please enter a maximum of 10 digits.');
+    } else {
+      setPhoneError('');
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Simple phone number validation
+    const isValidPhone = formData.phone.trim().length === 10;
+
+    if (!isValidPhone) {
+      setPhoneError('Please enter a valid 10-digit phone number.');
+      return;
+    }
+
+    setSubmitting(true);
+
+    try {
+      const response = await fetch('https://rofbackend.onrender.com/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const responseData = await response.json();
+      console.log('Form submitted successfully:', responseData);
+
+      setSubmittedMessage('Form submitted successfully!');
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+      });
+      setPhoneError(''); // Clear any previous phone number errors
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmittedMessage('Error submitting form. Please try again later.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
   // Array of slide images
   const slides = [
     'bgImage1.jpg',
@@ -255,21 +328,62 @@ function Home() {
             <h1 className='font-bold text-4xl text-blue-950 mb-7 mt-10'>
               Enquiry Now
             </h1>
-            <form>
-              <div className='flex flex-col mb-6'>
-               <label htmlFor='name' className='text-gray-500'>Client Name</label> 
-              <input className='border border-gray-300 px-14 py-3' required></input>
-              </div>
-              <div className='flex flex-col mb-6'>
-               <label htmlFor='email' className='text-gray-500'>Email</label> 
-              <input type='email' className='border border-gray-300 px-14 py-3'></input>
-              </div>
-              <div className='flex flex-col mb-10'>
-               <label htmlFor='Phone' className='text-gray-500'>Phone Number</label> 
-              <input type='text' className='border border-gray-300 px-14 py-3'></input>
-              </div>
-              <button className='w-full bg-orange-500 text-white font-bold text-sm text-center py-4 '>Send</button>
-            </form>
+            <div>
+      {submittedMessage && <p className="text-green-600">{submittedMessage}</p>}
+      <form onSubmit={handleSubmit}>
+      <div className='flex flex-col mb-6'>
+        <label htmlFor='name' className='text-gray-500'>
+          Client Name
+        </label>
+        <input
+          type='text'
+          id='name'
+          name='name'
+          value={formData.name}
+          onChange={handleInputChange}
+          className='border border-gray-300 px-14 py-3'
+          required
+        />
+      </div>
+      <div className='flex flex-col mb-6'>
+        <label htmlFor='email' className='text-gray-500'>
+          Email
+        </label>
+        <input
+          type='email'
+          id='email'
+          name='email'
+          value={formData.email}
+          onChange={handleInputChange}
+          className='border border-gray-300 px-14 py-3'
+        />
+      </div>
+      <div className='flex flex-col mb-10'>
+        <label htmlFor='phone' className='text-gray-500'>
+          Phone Number
+        </label>
+        <input
+          type='text'
+          id='phone'
+          name='phone'
+          value={formData.phone}
+          onChange={(e) => {
+            handleInputChange(e);
+            validatePhone(e.target.value);
+          }}
+          className='border border-gray-300 px-14 py-3'
+        />
+        {phoneError && <p className='text-red-500'>{phoneError}</p>}
+      </div>
+      <button
+        type='submit'
+        className='w-full bg-orange-500 text-white font-bold text-sm text-center py-4'
+        disabled={submitting}
+      >
+        {submitting ? 'Submitting...' : 'Submit'}
+      </button>
+    </form>
+    </div>
           </div>
           <div className='bg-blue-950   px-4 py-7 w-full  lg:w-[50%]'>
             <h1 className='font-bold text-3xl px-5 py-5 text-white'>Our Events</h1>
