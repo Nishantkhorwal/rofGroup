@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { FiMenu } from "react-icons/fi";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import Navbar from './Navbar';
@@ -7,17 +6,17 @@ import { FaInstagram, FaTwitter, FaFacebookF } from 'react-icons/fa';
 import { IoLogoWhatsapp } from 'react-icons/io';
 
 function Headers() {
-  const [openMenu, setOpenMenu] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState([false, false, false, false, false]);
+  const [openMenu, sehrefpenMenu] = useState(false);
+  const [openDropdown, sehrefpenDropdown] = useState([false, false, false, false, false]);
 
   const handleMenuClick = () => {
-    setOpenMenu(!openMenu);
+    sehrefpenMenu(!openMenu);
   };
 
   const handleDropdownClick = (index) => {
     const updatedDropdownState = [...openDropdown];
     updatedDropdownState[index] = !updatedDropdownState[index];
-    setOpenDropdown(updatedDropdownState);
+    sehrefpenDropdown(updatedDropdownState);
   };
 
   return (
@@ -29,8 +28,8 @@ function Headers() {
             
           </div>
           <div className='flex flex-row'>
-            <button className='px-4 py-2  bg-yellow-500 font-bold hidden lg:block lg:mx-6 shadow-2xl'>Login</button>
-            <button className='px-4 py-2  bg-yellow-500 font-bold shadow-xl hidden lg:me-3 lg:block'>Contact Us</button>
+            <buthrefn className='px-4 py-2  bg-yellow-500 font-bold hidden lg:block lg:mx-6 shadow-2xl'>Login</buthrefn>
+            <buthrefn className='px-4 py-2  bg-yellow-500 font-bold shadow-xl hidden lg:me-3 lg:block'>Contact Us</buthrefn>
             <div className=' mx-2 lg:mx-2 lg:px-3 lg:py-2  justify-center items-center bg-white hover:bg-blue-600 cursor-pointer hidden lg:flex '><a href='/'><FaInstagram /></a></div>
             <div className=' mx-2 lg:mx-2 lg:px-3 lg:py-2  justify-center items-center bg-white hover:bg-blue-600 cursor-pointer hidden lg:flex '><a href='/'><FaTwitter /></a></div>
             <div className=' mx-2 lg:mx-2 lg:px-3 lg:py-2  justify-center items-center bg-white hover:bg-blue-600 cursor-pointer hidden lg:flex '><a href='/'><IoLogoWhatsapp /></a></div>
@@ -51,9 +50,9 @@ function Headers() {
               <div className='flex flex-row justify-between w-full'><h1>About Us</h1> {openDropdown[0] ? <MdKeyboardArrowUp className="ml-2" /> : <MdKeyboardArrowDown className="ml-2" />}</div>
                 {openDropdown[1] && (
                   <ul className=''>
-                     <Link to='/vision'><li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Vision, Mission & Values</li></Link>
-                     <Link to='/foundermessage'><li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Founder's Message</li></Link>
-                     <Link to='/principalmessage'><li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Principal's Message</li></Link>
+                     <a href='/vision'><li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Our Values</li></a>
+                     <a href='/foundermessage'><li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Our Work</li></a>
+                     <a href='/principalmessage'><li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Our Blogs</li></a>
                   </ul>
                 )}
               </li>
@@ -61,28 +60,21 @@ function Headers() {
               <div className='flex flex-row justify-between w-full'><h1>Media</h1> {openDropdown[0] ? <MdKeyboardArrowUp className="ml-2" /> : <MdKeyboardArrowDown className="ml-2" />}</div>
                 {openDropdown[2] && (
                   <ul className=''>
-                    <Link to='/admissionprocess'><li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Admission Process / Fees</li></Link>
-                    <Link to='/applynow'> <li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Apply Now</li></Link>
+                    <a href='/admissionprocess'><li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Media</li></a>
+                    <a href='/applynow'> <li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Media</li></a>
                   </ul>
                 )}
               </li>
-              <li className='text-lg font-semibold hover:bg-yellow-500 py-3 px-6 cursor-pointer flex flex-col justify-start items-start w-full' onClick={() => handleDropdownClick(3)}>
-              <div className='flex flex-row justify-between w-full'><h1>Construction Updates</h1> {openDropdown[0] ? <MdKeyboardArrowUp className="ml-2" /> : <MdKeyboardArrowDown className="ml-2" />}</div>
-                {openDropdown[3] && (
-                  <ul className=''>
-                    <Link to='/parenttestimonials'><li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Parent's Testimonials</li></Link>
-                    <Link to='/studenttestimonials'><li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Student's Testimonials</li></Link>
-                    <li className='text-base py-2 cursor-pointer'>Our Gallery</li>
-                  </ul>
-                )}
+              <li className='text-lg font-semibold hover:bg-yellow-500 py-3 px-6 cursor-pointer flex flex-col justify-start items-start w-full' >
+                <div className=' w-full'>Construction Updates</div>
               </li>
               <li className='text-lg font-semibold hover:bg-yellow-500 py-3 px-6 cursor-pointer flex flex-col justify-start items-start w-full'onClick={() => handleDropdownClick(4)}>
               <div className='flex flex-row justify-between w-full'><h1>Contact Us</h1> {openDropdown[0] ? <MdKeyboardArrowUp className="ml-2" /> : <MdKeyboardArrowDown className="ml-2" />}</div>
                 {openDropdown[4] && (
                   <ul className=''>
-                    <Link to='/contactinfo'><li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Contact Information</li></Link>
-              <Link to='/enquiry'><li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Enquiry</li></Link>
-              <Link to='/career'><li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Career</li></Link>
+                    <a href='/contactinfo'><li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Contact Information</li></a>
+              <a href='/enquiry'><li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Enquiry</li></a>
+              <a href='/career'><li className='px-4 py-2 hover:bg-gray-200 hover:text-blue-900 cursor-pointer'>Career</li></a>
                   </ul>
                 )}
               </li>

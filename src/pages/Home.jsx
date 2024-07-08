@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Headers from '../components/Headers';
-import { RiProfileLine } from "react-icons/ri";
 import { BsFillTelephoneFill } from "react-icons/bs";
 
 import { FaBell } from "react-icons/fa";
-import { FaLaptopCode } from "react-icons/fa";
-import { FaUtensils } from "react-icons/fa";
+
 import { FaBook } from "react-icons/fa";
 import { IoPeopleSharp } from "react-icons/io5";
 import CountUp from 'react-countup';
@@ -17,7 +15,6 @@ import { PiStudentFill } from "react-icons/pi";
 import { GiTeacher } from "react-icons/gi";
 import { MdWorkspacePremium } from "react-icons/md";
 import { IoIosStar } from "react-icons/io";
-import { FaPersonSwimming } from "react-icons/fa6";
 import { FaHandshake } from 'react-icons/fa';
 import { GiDiamondHard } from 'react-icons/gi';
 import { MdOutlineLightbulb } from 'react-icons/md';
